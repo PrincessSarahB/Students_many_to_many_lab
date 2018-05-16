@@ -65,7 +65,7 @@ public class Student {
     }
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name="student_lessons",
+    @JoinTable(name="student_lesson",
             inverseJoinColumns = { @JoinColumn(name="lesson_id", nullable = false, updatable = false)},
             joinColumns = { @JoinColumn(name="student_id", nullable = false, updatable = false)}
     )
@@ -85,6 +85,10 @@ public class Student {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public void addLessons(Lesson lesson){
+        this.lessons.add(lesson);
     }
 }
 

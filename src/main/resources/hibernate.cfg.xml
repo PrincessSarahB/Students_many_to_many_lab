@@ -14,5 +14,6 @@
         <mapping class="models.Student"/>
         <mapping class="models.Course"/>
         <mapping class="models.Lesson"/>
+        <mapping class="models.Instructor"/>
     </session-factory>
 </hibernate-configuration>

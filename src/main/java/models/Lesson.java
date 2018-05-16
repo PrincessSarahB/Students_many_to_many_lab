@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name="lessons")
 public class Lesson {
 
     private int id;
@@ -11,14 +13,16 @@ public class Lesson {
     private int roomNumber;
     private Course course;
     private Set<Student> students;
+    private Instructor instructor;
 
     public Lesson() {
     }
 
-    public Lesson(String title, int roomNumber, Course course) {
+    public Lesson(String title, int roomNumber, Course course, Instructor instructor) {
         this.title = title;
         this.roomNumber = roomNumber;
         this.course = course;
+        this.instructor = instructor;
         this.students = new HashSet<Student>();
     }
 
@@ -61,7 +65,7 @@ public class Lesson {
     }
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "student_lessons",
+    @JoinTable(name = "student_lesson",
             joinColumns = {@JoinColumn(name = "lesson_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "student_id", nullable = false, updatable = false)}
     )
@@ -71,5 +75,19 @@ public class Lesson {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
+    }
+
+    public void addStudents(Student student){
+        this.students.add(student);
+    }
+
+    @ManyToOne
+    @JoinColumn(name="lesson_id", nullable = false)
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 }
